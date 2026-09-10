@@ -154,7 +154,7 @@ export function HeroSection({ featuredCourses = [], featuredBoards = [] }: HeroS
                 <Button
                   asChild
                   size="lg"
-                  className="bg-white hover:bg-neutral-100 text-[#312455] rounded-xl px-7 py-5 text-xs md:text-base font-bold tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg border-0 w-fit"
+                  className="bg-secondary hover:bg-secondary/90 text-white rounded-xl px-7 py-5 text-xs md:text-base font-bold tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg border-0 w-fit"
                 >
                   <Link href="/courses">Explorar Soluções</Link>
                 </Button>
@@ -197,7 +197,7 @@ export function HeroSection({ featuredCourses = [], featuredBoards = [] }: HeroS
                       <Button
                         asChild
                         size="sm"
-                        className="bg-white hover:bg-neutral-100 text-[#312455] rounded-xl px-7 py-5 text-[10px] md:text-sm font-bold tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg border-0 w-fit"
+                        className="bg-secondary hover:bg-secondary/90 text-white rounded-xl px-7 py-5 text-[10px] md:text-sm font-bold tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg border-0 w-fit"
                       >
                         <Link href="/courses">Explorar Soluções</Link>
                       </Button>
