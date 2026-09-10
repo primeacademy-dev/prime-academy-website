@@ -151,7 +151,7 @@ export function LoginForm() {
             <span className="w-full border-t border-slate-200" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="px-2 bg-white text-slate-500">Novo por aqui?</span>
+            <span className="px-2 bg-white text-slate-500">Inscreva-se nos nossos programas</span>
           </div>
         </div>
 

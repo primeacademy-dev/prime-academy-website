@@ -98,7 +98,7 @@ export function GalleryGrid({ images, categories }: GalleryGridProps) {
               Últimos destaques da Prime Academy
             </h2>
             <p className="text-slate-500 text-sm mt-1 max-w-lg">
-              Explore os momentos marcantes que moldam o nosso ecossistema — formações intensivas, workshops práticos e celebrações de excelência profissional.
+              Explore os momentos marcantes que moldam o nosso ecossistema, formações intensivas, workshops práticos e celebrações de excelência profissional.
             </p>
           </div>
 

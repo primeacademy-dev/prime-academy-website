@@ -12,6 +12,7 @@ import type { Course } from '@/lib/hygraph'
 import { getTrainerForCourse } from '@/lib/course-trainers'
 import { getCoursePriceDisplay } from '@/lib/format-price'
 import { PreEnrollmentModal } from './pre-enrollment-modal'
+import { CtaSection } from '@/components/home/cta-section'
 
 interface CoursesGridProps {
   courses: Course[]
@@ -35,6 +36,7 @@ const normalizeStr = (str: string): string =>
 export function CoursesGrid({ courses, categories }: CoursesGridProps) {
   const searchParams = useSearchParams()
   const categoryParam = searchParams.get('category')
+  const whatsappUrl = `https://api.whatsapp.com/send?phone=244921394946&text=${encodeURIComponent('Olá, Prime Academy! 👋 Quero fazer parte da próxima turma e gostaria de saber mais sobre as próximas inscrições.')}`
   
   // activeFilter default 'GESTÃO ADMINISTRATIVA DIGITAL' — first category in OFFICIAL_CATEGORIES
   const [activeFilter, setActiveFilter] = useState(categoryParam || 'GESTÃO ADMINISTRATIVA DIGITAL')
@@ -98,7 +100,7 @@ export function CoursesGrid({ courses, categories }: CoursesGridProps) {
             transition={{ duration: 0.4 }}
             className="text-white/60 font-bold text-xs uppercase tracking-widest block mb-3"
           >
-            Formação, programas, eventos, consultoria
+            FORMAÇÃO, PROGRAMAS, CONSULTORIA & EVENTOS
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -106,19 +108,33 @@ export function CoursesGrid({ courses, categories }: CoursesGridProps) {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight mb-4 max-w-3xl mx-auto"
           >
-            Um mar de Oportunidades à sua espera
+            Um Mar de Oportunidades à Sua Espera
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-slate-300 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mt-4 mb-10 text-pretty"
+            className="text-slate-300 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mt-4 mb-8 text-pretty"
           >
-            Descubra a formação ideal para impulsionar a sua carreira. Oferecemos cursos práticos
-            com certificação reconhecida pelo mercado angolano.
+            Uma Academia. Soluções à medida. Um único padrão de Excelência.
           </motion.p>
 
-          {/* Barra de pesquisa Glassmorphic integrada na Hero - REMOVIDA conforme solicitado */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="flex justify-center"
+          >
+            <Button
+              asChild
+              size="lg"
+              className="bg-white hover:bg-neutral-100 text-[#312455] rounded-xl px-7 py-5 text-xs md:text-base font-bold tracking-wide transition-all duration-300 hover:scale-[1.03] shadow-md hover:shadow-lg border-0"
+            >
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                Fazer Parte da Próxima Turma
+              </a>
+            </Button>
+          </motion.div>
         </div>
       </section>
 
@@ -160,8 +176,9 @@ export function CoursesGrid({ courses, categories }: CoursesGridProps) {
         </div>
 
         {/* Grid – 1 col mobile / 2 md / 3 lg / 4 xl — preenche todo o espaço horizontal */}
-        <AnimatePresence mode="popLayout">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div id="nossos-cursos" className="scroll-mt-32">
+          <AnimatePresence mode="popLayout">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredCourses.map((course, index) => {
               const trainer = getTrainerInfo(course.id, course.price)
               return (
@@ -257,8 +274,18 @@ export function CoursesGrid({ courses, categories }: CoursesGridProps) {
             </p>
           </motion.div>
         )}
+        </div>
 
       </div>
+
+      <CtaSection
+        title="Pronto Para Atualizar Os Seus Conhecimentos?"
+        subtitle="A sua jornada começa hoje. Inscreva-se numa das nossas turmas ou fale connosco para encontrar o programa ideal, individual ou à medida da sua equipa."
+        cta1Label="Pedir Proposta"
+        cta1Href="/contact"
+        cta2Label="Falar Com A Nossa Equipa"
+        cta2Href="/contact"
+      />
 
       <PreEnrollmentModal 
         course={selectedCourseForModal} 

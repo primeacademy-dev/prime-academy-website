@@ -27,7 +27,6 @@ export function Footer() {
   const contactDetails = [
     { icon: Phone, text: '(+244) 921 394 946', href: 'tel:+244921394946' },
     { icon: Mail, text: 'geral@primeacademy.ao', href: 'mailto:geral@primeacademy.ao' },
-    { icon: Mail, text: 'info@primeacademy.ao', href: 'mailto:info@primeacademy.ao' },
   ]
 
   const scrollToTop = () => {

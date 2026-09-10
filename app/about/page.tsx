@@ -347,7 +347,7 @@ export default function AboutPage() {
             <span className="text-[#8a66a8] font-bold text-xs uppercase tracking-widest">O NOSSO PÚBLICO</span>
             <h2 className="text-3xl md:text-4xl font-black text-[#312455]">Para Quem Criamos Valor</h2>
             <p className="text-slate-500 text-sm leading-relaxed mt-4 max-w-2xl mx-auto">
-              Da Administração Pública às maiores empresas privadas de Angola — a Prime Academy forma profissionais e equipas em todos os sectores onde a gestão secretarial e administrativa faz a diferença.
+              Da Administração Pública às maiores empresas privadas de Angola, a Prime Academy forma profissionais e equipas em todos os sectores onde a gestão secretarial e administrativa faz a diferença.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -458,7 +458,7 @@ export default function AboutPage() {
               A nossa missão é desenvolver esses profissionais e entregar às organizações equipas mais capazes, com formação especializada, contextualizada e de alto impacto.
               É este o nosso compromisso. Deixamos os números falarem por si.
             </p>
-            <p className="mt-4 font-bold">— A Direcção da Prime Academy</p>
+            <p className="mt-4 font-bold">- A Direcção da Prime Academy</p>
           </div>
         </div>
       </section>
@@ -573,7 +573,7 @@ export default function AboutPage() {
       <CtaSection
         eyebrow="ENCONTROU O PARCEIRO CERTO"
         title="Já Escolheu o Programa Ideal?"
-        subtitle="Explore o nosso catálogo ou fale connosco — temos o programa certo para si ou para a sua equipa."
+        subtitle="Explore o nosso catálogo ou fale connosco, temos o programa certo para si ou para a sua equipa."
         cta1Label="Ver Todas As Soluções"
         cta1Href="/courses"
         cta2Label="Falar com a Prime"

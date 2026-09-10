@@ -154,7 +154,7 @@ const contactInfoData: ContactInfo = {
 
 const GET_CURSOS = `
   query GetCursos {
-    cursos {
+    cursos(first: 100) {
       id
       name
       description
