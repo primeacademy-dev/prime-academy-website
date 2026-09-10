@@ -33,7 +33,7 @@ export function HowItWorksSection() {
         <div className="text-center mb-16">
           <span className="text-[#8a66a8] font-bold text-xs uppercase tracking-widest">A SUA JORNADA</span>
           <h2 className="text-3xl md:text-4xl font-black text-[#312455] mt-3 leading-tight">
-            Como Funciona A Sua Jornada
+            Como Funciona a sua Jornada
           </h2>
         </div>
 

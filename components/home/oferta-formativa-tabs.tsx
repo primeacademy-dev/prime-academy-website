@@ -31,13 +31,13 @@ const OFERTA_FORMATIVA = [
     id: 'formacao',
     icon: BookOpen,
     title: 'Formação Especializada',
-    subtitle: 'Programas Completos Para Desenvolver Competências Críticas',
+    subtitle: 'Programas completos para Desenvolver competências críticas',
     cta: 'Ver cursos',
     ctaHref: '/courses',
     areas: [
       {
         titulo: 'Gestão Administrativa Digital',
-        descricao: 'Sistemas, processos e normas de gestão da informação e arquivo nas organizações modernas.',
+        descricao: 'Sistemas, Processos e Normas de gestão da informação e arquivo nas organizações modernas.',
         areaIcon: FolderOpen,
         cursos: [
           'Gestão de Documentos e Arquivos Electrónicos',
@@ -47,7 +47,7 @@ const OFERTA_FORMATIVA = [
       },
       {
         titulo: 'Liderança e Comunicação',
-        descricao: 'Comunicação institucional, protocolo, redação executiva e relações interpessoais de alto nível.',
+        descricao: 'Comunicação Institucional, Protocolo, Redacção Executiva e Relações Interpessoais de Alto Nível.',
         areaIcon: Mic2,
         cursos: [
           'Comunicação Institucional e Corporativa',
@@ -58,7 +58,7 @@ const OFERTA_FORMATIVA = [
       },
       {
         titulo: 'Tecnologias Inovadoras',
-        descricao: 'IA, ferramentas digitais avançadas e cibersegurança para o profissional administrativo moderno.',
+        descricao: 'IA, Ferramentas Digitais avançadas e Cibersegurança para o profissional administrativo moderno.',
         areaIcon: Cpu,
         cursos: [
           'AI para Automação e Tarefas Administrativas',
@@ -69,7 +69,7 @@ const OFERTA_FORMATIVA = [
       },
       {
         titulo: 'Secretariado Estratégico',
-        descricao: 'Competências de assessoria, protocolo executivo e gestão de gabinetes de alta direcção.',
+        descricao: 'Competências de Assessoria, Protocolo Executivo e Gestão de Gabinetes de Alta Direcção.',
         areaIcon: Award,
         cursos: [
           'Secretariado para Alta Direcção',
@@ -84,13 +84,13 @@ const OFERTA_FORMATIVA = [
     id: 'programas',
     icon: Users,
     title: 'Programas Especiais',
-    subtitle: 'Programas De Curta Duração Focados Em Resultados Rápidos',
+    subtitle: 'Programas de curta duração focados em resultados rápidos',
     cta: 'Saber mais',
     ctaHref: '/courses',
     areas: [
       {
         titulo: 'Agenciamento',
-        descricao: 'Gestão de projetos e parcerias estratégicas para profissionais de alta performance.',
+        descricao: 'Gestão de Projetos e parcerias estratégicas para Profissionais de Alta Performance.',
         areaIcon: ClipboardList,
         cursos: [
           'Agenciamento de Formadores e Gestão de Formação Estratégica',
@@ -98,15 +98,15 @@ const OFERTA_FORMATIVA = [
       },
       {
         titulo: 'Atualização',
-        descricao: 'Formação contínua e atualização profissional para acompanhar as exigências do mercado.',
+        descricao: 'Formação Contínua e atualização profissional para acompanhar as exigências do mercado.',
         areaIcon: RefreshCw,
         cursos: [
-          'Atualização de Habilidades de Altos Gestores',
+          'Atualização de habilidades de Altos Gestores',
         ],
       },
       {
         titulo: 'Ética',
-        descricao: 'Princípios de ética profissional e governança corporativa aplicados ao contexto organizacional.',
+        descricao: 'Princípios de Ética Profissional e Governança Corporativa aplicados ao contexto organizacional.',
         areaIcon: ShieldCheck,
         cursos: [
           'Briefing sobre Ética e Deontologia Profissional',
@@ -118,7 +118,7 @@ const OFERTA_FORMATIVA = [
     id: 'eventos',
     icon: Calendar,
     title: 'Eventos Corporativos',
-    subtitle: 'Seminários, Workshops E Masterclasses De Alto Nível',
+    subtitle: 'Seminários, Workshops e Masterclasses de Alto Nível',
     cta: 'Explorar eventos',
     ctaHref: '/gallery',
     areas: [
@@ -141,7 +141,7 @@ const OFERTA_FORMATIVA = [
       },
       {
         titulo: 'Masterclasses',
-        descricao: 'Aprendizagem de elite com especialistas sobre a gestão de gabinetes de altos gestores.',
+        descricao: 'Aprendizagem de elite com especialistas sobre a Gestão de Gabinetes de Altos Gestores.',
         areaIcon: GraduationCap,
         cursos: [
           'Masterclass sobre Gestão de Gabinetes de Altos Gestores',
@@ -149,7 +149,7 @@ const OFERTA_FORMATIVA = [
       },
       {
         titulo: 'Networking',
-        descricao: 'Eventos de networking exclusivos para profissionais de alto nível e tomadores de decisão.',
+        descricao: 'Eventos de Networking exclusivos para profissionais de alto nível e tomadores de decisão.',
         areaIcon: Network,
         cursos: [
           'Networking de Alto Nível',
@@ -162,13 +162,13 @@ const OFERTA_FORMATIVA = [
     id: 'servicos',
     icon: Briefcase,
     title: 'Serviços Personalizados',
-    subtitle: 'Consultorias E Formação Sob Medida Para A Sua Organização',
+    subtitle: 'Consultorias e Formação sob medida para a sua Organização',
     cta: 'Solicitar consultoria',
     ctaHref: '/contact',
     areas: [
       {
         titulo: 'Consultoria',
-        descricao: 'Apoio especializado na organização de gabinetes, comunicação institucional e assessoria de imprensa.',
+        descricao: 'Apoio especializado na Organização de Gabinetes, Comunicação Institucional e Assessoria de Imprensa.',
         areaIcon: BarChart2,
         cursos: [
           'Consultoria em Gestão e Organização de Gabinetes de Altos Gestores',
@@ -177,10 +177,10 @@ const OFERTA_FORMATIVA = [
       },
       {
         titulo: 'Formação Sob Medida',
-        descricao: 'Programas formativos desenhados especificamente para as necessidades da sua organização.',
+        descricao: 'Programas formativos desenhados especificamente para as necessidades da sua Organização.',
         areaIcon: FileSearch,
         cursos: [
-          'Construção de Formação sob Medida para as Necessidades da sua Organização',
+          'Construção de Formação sob medida para as necessidades da sua Organização',
         ],
       },
     ],

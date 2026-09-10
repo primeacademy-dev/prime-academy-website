@@ -38,7 +38,7 @@ const workshops = [
     edition: '1ª Edição',
     date: '10 de Setembro a 05 de Outubro de 2026',
     icon: Award,
-    tag: 'Alta Direção'
+    tag: 'Alta Direcção'
   }
 ]
 
@@ -54,10 +54,10 @@ export function WorkshopsSection() {
             CALENDÁRIO EXECUTIVO 2026
           </Badge>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-primary max-w-3xl mx-auto leading-tight">
-            Workshops E Seminários Executivos
+            Workshops e Seminários Executivos
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-            Programas intensivos de atualização profissional com formadores especialistas de renome nacional e internacional.
+            Programas intensivos de actualização profissional com formadores especialistas de renome nacional e internacional.
           </p>
         </div>
 

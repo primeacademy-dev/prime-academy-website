@@ -13,7 +13,7 @@ export function AboutSection() {
               QUEM SOMOS
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#312455] leading-tight">
-              Liderança, Inovação E Impacto No Desenvolvimento Corporativo
+              Liderança, Inovação e Impacto no Desenvolvimento Corporativo
             </h2>
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
               Transformamos organizações e carreiras desenvolvendo programas individuais ou para equipas de qualquer dimensão, com diagnóstico de necessidades, formação in-company e relatório de impacto incluídos.
@@ -22,7 +22,7 @@ export function AboutSection() {
               href="/about"
               className="inline-flex items-center gap-2 bg-[#8a66a8] hover:bg-[#735191] text-white font-bold text-sm px-6 py-3 rounded-xl transition-all shadow-md hover:shadow-xl group"
             >
-              Conheça A Nossa História
+              Conheça a nossa História
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>

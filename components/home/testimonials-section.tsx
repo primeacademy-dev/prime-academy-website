@@ -50,7 +50,7 @@ export async function TestimonialsSection() {
               TESTEMUNHOS COMPROVADOS
             </Badge>
             <h3 className="text-2xl md:text-3xl font-extrabold text-primary">
-              Os Nossos Formandos Recomendam
+              Os nossos Formandos Recomendam
             </h3>
             <p className="text-muted-foreground text-sm leading-relaxed max-w-xl mx-auto">
               Porque o investimento tem impacto real nas suas organizações e carreiras.

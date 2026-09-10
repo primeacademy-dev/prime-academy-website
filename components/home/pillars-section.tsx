@@ -25,7 +25,7 @@ const pillars = [
     icon: BookOpen,
     title: "Liderança & Redacção Oficial",
     subtitle: "Comunicação e Procedimentos Estatais",
-    description: "Desenvolva capacidades de liderança e domine a redação oficial, essencial para a comunicação institucional de alto nível.",
+    description: "Desenvolva capacidades de liderança e domine a redacção oficial, essencial para a comunicação institucional de alto nível.",
     competencies: [
       "Técnicas de Redacção Oficial",
       "Comunicação Institucional",

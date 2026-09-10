@@ -34,10 +34,10 @@ export function DiferentesSection() {
             O QUE NOS DIFERENCIA
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#312455] leading-tight">
-            Razões Fundamentais Para Escolher A Prime Academy
+            Razões Fundamentais para Escolher a Prime Academy
           </h2>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-            Não somos mais um centro de formação. Somos a academia angolana especializada em Novas Tecnologias de Gestão Secretarial, com historial e metodologia, para o sector público e privado.
+            Não somos mais um centro de formação. Somos a academia angolana especializada em Novas Tecnologias de Gestão Secretarial, com historial e metodologia orientada, para o sector público e privado.
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export function DiferentesSection() {
             href="/contact"
             className="inline-flex items-center gap-2 bg-[#8a66a8] hover:bg-[#735191] text-white font-bold text-sm px-6 py-3 rounded-xl transition-all shadow-lg hover:shadow-xl"
           >
-            Falar Com A Nossa Equipa
+            Falar com a nossa Equipa
           </Link>
         </div>
       </div>

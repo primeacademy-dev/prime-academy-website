@@ -54,7 +54,7 @@ export default async function ContactPage() {
               <div className="text-left">
                 <h2 className="text-[#312455] font-black text-2xl sm:text-3xl mb-1">Contactos</h2>
                 <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
-                  Contacte-Nos Pelo Seu Canal De Preferência: Formulário, WhatsApp Ou Email.
+                  Contacte-nos pelo seu canal de preferência: Formulário, WhatsApp Ou Email.
                 </p>
               </div>
               {/* Grid of 4 Items */}
@@ -143,7 +143,7 @@ export default async function ContactPage() {
             <div className="h-full">
               <div className="bg-white border border-slate-200 rounded-xl p-5 sm:p-7 shadow-lg h-full flex flex-col">
                 <h3 className="text-xl font-bold text-[#312455] mb-4 sm:mb-6">
-                  Envie-Nos Um Pedido
+                  Envie-nos o seu Pedido
                 </h3>
                 <div className="flex-1">
                   <ContactForm />

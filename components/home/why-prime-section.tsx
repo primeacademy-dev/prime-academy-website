@@ -33,7 +33,7 @@ export function WhyPrimeSection() {
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-primary uppercase tracking-tight mb-4">
-            Porquê Escolher A Prime
+            Porquê Escolher a Prime
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Descubra os pilares que nos posicionam como o seu parceiro de eleição em formação profissional de alto nível.

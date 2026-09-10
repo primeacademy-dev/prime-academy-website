@@ -90,7 +90,7 @@ export default function AboutPage() {
             O SEU PARCEIRO ESTRATÉGICO
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight mb-4 max-w-3xl mx-auto">
-            Conheça O Ecossistema Prime
+            Conheça o Ecossistema Prime
           </h1>
           <p className="text-slate-300 max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed mt-4 text-pretty">
             Desde 2018 a impulsionar o desenvolvimento e a melhoria contínua das habilidades técnicas e humanas em gestão secretarial, com soluções personalizadas em todo território nacional.
@@ -195,7 +195,7 @@ export default function AboutPage() {
               href="/gallery"
               className="inline-flex items-center justify-center bg-[#8a66a8] hover:bg-[#735191] text-white font-bold text-sm px-8 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
             >
-              Ir Para Galeria De Projetos
+              Ir para Galeria
             </Link>
           </div>
         </div>
@@ -240,7 +240,7 @@ export default function AboutPage() {
             <div className="space-y-6">
               <div>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#312455] mt-3 leading-tight">
-                  A Nossa História
+                  A nossa História
                 </h2>
               </div>
 
@@ -282,7 +282,7 @@ export default function AboutPage() {
                   href="/gallery"
                   className="inline-flex items-center justify-center bg-[#8a66a8] hover:bg-[#735191] text-white font-bold text-sm px-8 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
                 >
-                  Conheça O Nosso Trabalho
+                  Conheça o nosso Trabalho
                 </Link>
               </div>
             </div>
@@ -401,7 +401,7 @@ export default function AboutPage() {
             <div>
               <span className="text-[#8a66a8] font-bold text-xs uppercase tracking-widest">A EXCELÊNCIA QUE NÃO SE NEGOCEIA</span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-[#312455] mt-3 leading-tight">
-                As Pessoas Por Detrás Da Prime
+                As Pessoas por detrás da Prime
               </h2>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed max-w-2xl mx-auto">
@@ -576,7 +576,7 @@ export default function AboutPage() {
         subtitle="Explore o nosso catálogo ou fale connosco, temos o programa certo para si ou para a sua equipa."
         cta1Label="Ver Todas As Soluções"
         cta1Href="/courses"
-        cta2Label="Falar Com A Prime"
+        cta2Label="Falar com a Prime"
         cta2Href="/contact"
       />
     </div>

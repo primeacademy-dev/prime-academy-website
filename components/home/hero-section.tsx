@@ -135,14 +135,14 @@ export function HeroSection({ featuredCourses = [], featuredBoards = [] }: HeroS
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-white text-[10px] tracking-wider border border-white/10 uppercase">
                 <Star className="h-3 w-3 text-secondary fill-secondary" />
-                <span className="font-semibold">Formação Executiva Em Angola</span>
+                <span className="font-semibold">Formação Executiva em Angola</span>
               </div>
             </div>
 
             <div className="max-w-xl text-left flex flex-col items-start justify-start">
               <div className="overflow-hidden">
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold text-white leading-tight tracking-tight">
-                  Da Competência À Excelência
+                  Da Competência à Excelência
                 </h1>
                 <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-lg font-light leading-relaxed text-pretty mt-3 lg:mt-4">
                   Formação corporativa especializada em Novas Tecnologias de Gestão Secretarial, focada no desenvolvimento de profissionais de alta performance para o alcance dos objectivos organizacionais.
@@ -178,14 +178,14 @@ export function HeroSection({ featuredCourses = [], featuredBoards = [] }: HeroS
                   <div className="flex flex-wrap items-center gap-3 pt-2">
                     <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-3 py-1 rounded-full text-white text-[10px] tracking-wider border border-white/10 uppercase">
                       <Star className="h-3 w-3 text-secondary fill-secondary" />
-                      <span className="font-semibold">Formação Executiva Em Angola</span>
+                      <span className="font-semibold">Formação Executiva em Angola</span>
                     </div>
                   </div>
 
                   <div className="max-w-[90%] md:max-w-[540px] text-left flex flex-col items-start justify-start">
                     <div className="overflow-hidden">
                       <h1 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight tracking-tight">
-                        Da Competência À Excelência
+                        Da Competência à Excelência
                       </h1>
                       <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-lg font-light leading-relaxed text-pretty mt-3">
                         Oferecemos formação corporativa especializada em secretariado executivo, gestão administrativa e tecnologias digitais em Angola. Programas práticos, formadores com experiência real, para profissionais ativos no alcance dos objectivos organizacionais.

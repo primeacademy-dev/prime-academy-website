@@ -29,7 +29,7 @@ export function ChallengesSection() {
             DESAFIOS DO MERCADO
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#312455] leading-tight">
-            Identificámos Os Desafios. Construímos As Soluções.
+            Identificámos os Desafios. Construímos as Soluções.
           </h2>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
             Angola tem profissionais com potencial. A Prime Academy existe para ajudar organizações e pessoas a transformar esse potencial em resultados reais.
@@ -65,7 +65,7 @@ export function ChallengesSection() {
             href="/courses"
             className="inline-flex items-center gap-2 bg-[#8a66a8] hover:bg-[#735191] text-white font-bold text-sm px-6 py-3 rounded-xl transition-colors"
           >
-            Descubra Os Nossos Programas
+            Descubra os nossos Programas
           </Link>
         </div>
       </div>

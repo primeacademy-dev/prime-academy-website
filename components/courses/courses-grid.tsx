@@ -149,7 +149,7 @@ export function CoursesGrid({ courses, categories }: CoursesGridProps) {
         {/* Título da secção */}
         <div className="text-center pt-2 mb-2">
           <h2 className="text-2xl md:text-3xl font-extrabold text-[#312455] tracking-wider">
-            Os Nossos Cursos
+            Os nossos Cursos
           </h2>
         </div>
 
@@ -270,7 +270,7 @@ export function CoursesGrid({ courses, categories }: CoursesGridProps) {
             <BookOpen className="h-12 w-12 text-slate-400 mx-auto mb-4" />
             <h3 className="text-lg font-bold text-slate-800 mb-1">Nenhum curso encontrado</h3>
             <p className="text-sm text-slate-500 max-w-xs mx-auto font-light leading-relaxed">
-              Não encontrámos nenhum curso correspondente aos seus filtros. Tente termos mais genéricos.
+              Não encontrámos nenhum curso correspondente aos seus filtros. Tente novamente com termos mais genéricos.
             </p>
           </motion.div>
         )}

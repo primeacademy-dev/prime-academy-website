@@ -31,7 +31,7 @@ export function PartnersSection() {
         <div className="text-center mb-10 space-y-2">
           <ScrollReveal delay={0.05} direction="up" distance={15}>
             <h2 className="text-xl md:text-2xl font-extrabold text-primary tracking-wider">
-              Clientes E Parceiros
+              Clientes e Parceiros
             </h2>
           </ScrollReveal>
 

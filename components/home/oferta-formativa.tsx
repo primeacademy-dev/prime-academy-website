@@ -25,7 +25,7 @@ const SOLUCOES_CARDS = [
     icon: Users,
     title: 'Programas Especiais',
     description: 'Agenciamento de formadores, actualização de altos gestores e briefings sobre ética e deontologia profissional.',
-    cta: 'Conhecer Os Programas',
+    cta: 'Conhecer os Programas',
     ctaHref: '/courses?tab=programas',
   },
   {
@@ -102,7 +102,7 @@ export function OfertaFormativa() {
             SOLUÇÕES PRIME
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#312455] leading-tight">
-            Quatro Formas De Transformar A Sua Organização
+            Quatro formas de transformar a sua Organização
           </h2>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
             Soluções especializadas, programas à medida e eventos de alto nível, escolha o formato que melhor serve o seu objectivo profissional.
