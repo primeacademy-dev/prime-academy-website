@@ -33,7 +33,6 @@ import { useAuth } from '@/contexts/auth-context'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase'
 import { createNotificationViaApi } from '@/lib/admin-api'
-import emailjs from '@emailjs/browser'
 
 interface EnrollmentCheckoutFormProps {
   courses: Course[]
@@ -270,19 +269,18 @@ export function EnrollmentCheckoutForm({
       }
 
       // 3. Notificações em segundo plano
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-      if (serviceId && templateId && publicKey) {
-        emailjs.send(serviceId, templateId, {
-          to_email: 'comercialprimeacademy@gmail.com',
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'enrollment',
           name: userProfile.nome,
           email: userProfile.email,
           phone: 'N/A',
           course: matchedCourse.name,
           message: `Modalidade: ${formData.modalidade === 'presencial' ? 'Presencial' : 'Online'}. Comprovativo será enviado via WhatsApp.`,
-        }, publicKey).catch(() => {})
-      }
+        }),
+      }).catch(() => {})
 
       supabase.from('perfis').select('id').eq('cargo', 'admin').then(({ data: admins }) => {
         if (admins && admins.length > 0) {
