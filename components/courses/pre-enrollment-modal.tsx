@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label'
 import { toast } from 'sonner'
 import { Loader2, CheckCircle } from 'lucide-react'
 import type { Course } from '@/lib/hygraph'
-import emailjs from '@emailjs/browser'
 
 interface PreEnrollmentModalProps {
   course: Course | null
@@ -34,32 +33,24 @@ export function PreEnrollmentModal({ course, isOpen, onClose }: PreEnrollmentMod
     e.preventDefault()
     setIsSubmitting(true)
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-
-    if (!serviceId || !templateId || !publicKey) {
-      toast.error('Erro de configuração', {
-        description: 'A configuração do EmailJS está incompleta.'
-      })
-      setIsSubmitting(false)
-      return
-    }
-
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          to_email: 'comercialprimeacademy@gmail.com',
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'enrollment',
           name: formData.nome,
           email: formData.email,
           phone: formData.telefone,
           course: course.name,
           message: `Modalidade: ${formData.modalidade}${formData.empresa ? `\nEmpresa: ${formData.empresa}` : ''}${formData.notas ? `\n\nNotas:\n${formData.notas}` : ''}`,
-        },
-        publicKey
-      )
+        }),
+      })
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => null)
+        throw new Error(result?.error || 'Não foi possível enviar a pré-inscrição')
+      }
 
       toast.success('Pré-inscrição enviada!', {
         description: `Entraremos em contacto brevemente sobre a modalidade ${formData.modalidade}.`

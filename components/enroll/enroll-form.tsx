@@ -12,7 +12,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import type { Course } from '@/lib/hygraph'
 import { createInscricao } from '@/lib/enrollments-service'
 import { useAuth } from '@/contexts/auth-context'
-import emailjs from '@emailjs/browser'
 
 interface EnrollFormProps {
   courses: Course[]
@@ -66,32 +65,24 @@ export function EnrollForm({ courses }: EnrollFormProps) {
     setIsSubmitting(true)
     setError(null)
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-
-    if (!serviceId || !templateId || !publicKey) {
-      setError('A configuração do EmailJS está incompleta. Verifique o seu ficheiro .env')
-      setIsSubmitting(false)
-      return
-    }
-
     try {
-
-      const result = await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          to_email: 'comercialprimeacademy@gmail.com',
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'enrollment',
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || 'Não fornecido',
-          course: formData.course || 'N/A',
-          message: formData.message || 'Sem observações adicionais',
-        },
-        publicKey
-      )
+          phone: formData.phone,
+          course: formData.course,
+          message: formData.message,
+        }),
+      })
 
+      if (!response.ok) {
+        const result = await response.json().catch(() => null)
+        throw new Error(result?.error || 'Não foi possível enviar a inscrição')
+      }
 
       const matchedCourse = courses.find((c) => c.name === formData.course)
       await createInscricao({
