@@ -282,19 +282,21 @@ export function EnrollmentCheckoutForm({
         }),
       }).catch(() => {})
 
-      supabase.from('perfis').select('id').eq('cargo', 'admin').then(({ data: admins }) => {
-        if (admins && admins.length > 0) {
-          admins.forEach((admin: { id: string }) => {
-            createNotificationViaApi({
-              perfilId: admin.id,
-              tipo: 'nova_inscricao',
-              titulo: 'Nova Inscrição Recebida',
-              descricao: `${userProfile.nome} inscreveu-se no curso "${matchedCourse.name}".`,
-              metadata: { aluno_nome: userProfile.nome, aluno_email: userProfile.email, curso_nome: matchedCourse.name, curso_id: formData.course, modalidade: formData.modalidade, inscricao_id: inscricaoId },
-            }).catch(() => {})
-          })
-        }
-      }).catch(() => {})
+      Promise.resolve(
+        supabase.from('perfis').select('id').eq('cargo', 'admin').then(({ data: admins }) => {
+          if (admins && admins.length > 0) {
+            admins.forEach((admin: { id: string }) => {
+              createNotificationViaApi({
+                perfilId: admin.id,
+                tipo: 'nova_inscricao',
+                titulo: 'Nova Inscrição Recebida',
+                descricao: `${userProfile.nome} inscreveu-se no curso "${matchedCourse.name}".`,
+                metadata: { aluno_nome: userProfile.nome, aluno_email: userProfile.email, curso_nome: matchedCourse.name, curso_id: formData.course, modalidade: formData.modalidade, inscricao_id: inscricaoId },
+              })
+            })
+          }
+        })
+      ).catch(() => {})
 
       if (userAuthId) {
         createNotificationViaApi({

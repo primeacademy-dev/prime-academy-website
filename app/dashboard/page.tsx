@@ -30,6 +30,7 @@ import { useCourses } from '@/hooks/use-courses'
 import { useActivePrograms } from '@/hooks/use-active-programs'
 import { useStudents } from '@/hooks/use-students'
 import { usePdfMaterials } from '@/hooks/use-pdf-materials'
+import { useQueryClient } from '@tanstack/react-query'
 
 
 
@@ -321,6 +322,12 @@ function DashboardPageContent() {
 
   // React Query: materiais PDF
   const { data: pdfMaterials = [] } = usePdfMaterials()
+  const queryClient = useQueryClient()
+  const setPdfMaterials = (updater: typeof pdfMaterials | ((previous: typeof pdfMaterials) => typeof pdfMaterials)) => {
+    queryClient.setQueryData<typeof pdfMaterials>(['pdf-materials'], (previous = []) =>
+      typeof updater === 'function' ? updater(previous) : updater
+    )
+  }
 
   // Form state for PDF upload
   const [newPdfTitle, setNewPdfTitle] = useState('')
