@@ -73,6 +73,9 @@ interface ContactData {
 
 type FormData = EnrollmentData | ContactData
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     let data: Partial<FormData>
