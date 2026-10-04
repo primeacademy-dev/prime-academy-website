@@ -28,7 +28,13 @@ type FormData = EnrollmentData | ContactData
 
 export async function POST(request: NextRequest) {
   try {
-    const data = (await request.json()) as Partial<FormData>
+    let data: Partial<FormData>
+
+    try {
+      data = (await request.json()) as Partial<FormData>
+    } catch {
+      return NextResponse.json({ error: 'Pedido inválido.' }, { status: 400 })
+    }
     const email = typeof data.email === 'string' ? data.email.trim() : ''
     const name = typeof data.name === 'string' ? data.name.trim() : ''
 
@@ -83,12 +89,23 @@ export async function POST(request: NextRequest) {
       emailjsPayload.accessToken = process.env.EMAILJS_PRIVATE_KEY
     }
 
-    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(emailjsPayload),
-      cache: 'no-store',
-    })
+    let response: Response
+
+    try {
+      response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(emailjsPayload),
+        cache: 'no-store',
+        signal: AbortSignal.timeout(10_000),
+      })
+    } catch (error) {
+      console.error('[send-email] EmailJS request failed', error)
+      return NextResponse.json(
+        { error: 'O serviço de email está temporariamente indisponível.' },
+        { status: 502 }
+      )
+    }
 
     if (!response.ok) {
       const errorText = (await response.text()).slice(0, 500)
