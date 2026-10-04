@@ -1,10 +1,57 @@
+import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
 
-// This is a placeholder API route for handling form submissions
-// You can integrate with:
-// 1. Resend (recommended for production)
-// 2. EmailJS (client-side alternative)
-// 3. Nodemailer (if you have SMTP access)
+const resend = new Resend(process.env.RESEND_API_KEY)
+const recipient = 'comercialprimeacademy@gmail.com'
+
+function escapeHtml(value: string) {
+  return value.replace(/[&<>"']/g, (character) => {
+    const entities: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }
+    return entities[character]
+  })
+}
+
+function textValue(value: unknown, fallback: string) {
+  return typeof value === 'string' && value.trim() ? value.trim().slice(0, 5000) : fallback
+}
+
+function senderAddress() {
+  const domain = process.env.RESEND_EMAIL_DOMAIN?.trim()
+  return domain ? `Prime Academy <noreply@${domain}>` : ''
+}
+
+function makeIdempotencyKey(data: FormData) {
+  const normalized = JSON.stringify({
+    type: data.type,
+    name: data.name,
+    email: data.email,
+    phone: data.phone ?? '',
+    course: data.course ?? '',
+    message: data.message ?? '',
+  })
+  return `form-submission/${Buffer.from(normalized).toString('base64url').slice(0, 180)}`
+}
+
+function emailHtml(data: FormData) {
+  const phone = textValue(data.phone, 'Não fornecido')
+  const course = textValue(data.course, 'N/A')
+  const message = textValue(data.message, 'Sem mensagem adicional')
+
+  return `
+    <h2>${data.type === 'enrollment' ? 'Nova inscrição' : 'Nova mensagem de contacto'}</h2>
+    <p><strong>Nome:</strong> ${escapeHtml(data.name)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+    <p><strong>Telefone:</strong> ${escapeHtml(phone)}</p>
+    <p><strong>Curso:</strong> ${escapeHtml(course)}</p>
+    <p><strong>Mensagem:</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
+  `
+}
 
 interface EnrollmentData {
   type: 'enrollment'
@@ -49,74 +96,52 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Tipo de formulário inválido' }, { status: 400 })
     }
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim()
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim()
-    const templateId = (
-      data.type === 'enrollment'
-        ? process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-        : process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-    )?.trim()
-
-    if (!serviceId || !publicKey || !templateId) {
+    const from = senderAddress()
+    if (!process.env.RESEND_API_KEY || !from) {
       return NextResponse.json(
         { error: 'O serviço de email não está configurado.' },
         { status: 503 }
       )
     }
 
-    const templateParams = {
-      to_email: 'comercialprimeacademy@gmail.com',
-      to_name: 'Prime Academy',
+    const formData = {
       type: data.type,
       name,
-      from_name: name,
       email,
-      user_email: email,
-      reply_to: email,
-      phone: typeof data.phone === 'string' ? data.phone.trim() : 'Não fornecido',
-      course: typeof data.course === 'string' ? data.course.trim() : 'N/A',
-      message: typeof data.message === 'string' ? data.message.trim() : 'Sem mensagem adicional',
-    }
+      phone: textValue(data.phone, 'Não fornecido'),
+      course: textValue(data.course, 'N/A'),
+      message: textValue(data.message, 'Sem mensagem adicional'),
+    } as FormData
 
-    const emailjsPayload: Record<string, unknown> = {
-      service_id: serviceId,
-      template_id: templateId,
-      user_id: publicKey,
-      template_params: templateParams,
-    }
+    const { data: sentEmail, error } = await resend.emails.send(
+      {
+        from,
+        to: [recipient],
+        replyTo: email,
+        subject: formData.type === 'enrollment'
+          ? `Nova inscrição — ${formData.course}`
+          : `Novo contacto — ${formData.name}`,
+        html: emailHtml(formData),
+        text: [
+          `Nome: ${formData.name}`,
+          `Email: ${formData.email}`,
+          `Telefone: ${formData.phone}`,
+          `Curso: ${formData.course}`,
+          `Mensagem: ${formData.message}`,
+        ].join('\n'),
+      },
+      { idempotencyKey: makeIdempotencyKey(formData) },
+    )
 
-    // Only send the private key when explicitly configured; undefined values are
-    // omitted by JSON.stringify and can make EmailJS reject the request.
-    if (process.env.EMAILJS_PRIVATE_KEY) {
-      emailjsPayload.accessToken = process.env.EMAILJS_PRIVATE_KEY
-    }
-
-    let response: Response
-
-    try {
-      response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(emailjsPayload),
-        cache: 'no-store',
-        signal: AbortSignal.timeout(10_000),
-      })
-    } catch (error) {
-      console.error('[send-email] EmailJS request failed', error)
-      return NextResponse.json(
-        { error: 'O serviço de email está temporariamente indisponível.' },
-        { status: 502 }
-      )
-    }
-
-    if (!response.ok) {
-      const errorText = (await response.text()).slice(0, 500)
-      console.error('[send-email] EmailJS rejected request', response.status, errorText)
+    if (error) {
+      console.error('[send-email] Resend rejected request', error.name, error.message)
       return NextResponse.json(
         { error: 'Não foi possível enviar o email. Tente novamente.' },
         { status: 502 }
       )
     }
+
+    console.info('[send-email] Email sent', sentEmail?.id)
 
     return NextResponse.json({
       success: true,
