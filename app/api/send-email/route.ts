@@ -49,11 +49,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Tipo de formulário inválido' }, { status: 400 })
     }
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-    const templateId = data.type === 'enrollment'
-      ? process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-      : process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim()
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim()
+    const templateId = (
+      data.type === 'enrollment'
+        ? process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+        : process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+    )?.trim()
 
     if (!serviceId || !publicKey || !templateId) {
       return NextResponse.json(
