@@ -28,81 +28,85 @@ type FormData = EnrollmentData | ContactData
 
 export async function POST(request: NextRequest) {
   try {
-    const data: FormData = await request.json()
+    const data = (await request.json()) as Partial<FormData>
+    const email = typeof data.email === 'string' ? data.email.trim() : ''
+    const name = typeof data.name === 'string' ? data.name.trim() : ''
 
-    // Validate required fields
-    if (!data.name || !data.email) {
+    if (!name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json(
-        { error: 'Nome e email são obrigatórios' },
+        { error: 'Nome e email válidos são obrigatórios' },
         { status: 400 }
       )
     }
 
-    // Log the submission (for development)
-
+    if (data.type !== 'contact' && data.type !== 'enrollment') {
+      return NextResponse.json({ error: 'Tipo de formulário inválido' }, { status: 400 })
+    }
 
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-    
-    // Select the correct template ID based on form type
-    let templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-    if (data.type === 'enrollment' && process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID) {
-      templateId = process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID
-    } else if (data.type === 'contact' && process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID) {
-      templateId = process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID
+    const templateId = data.type === 'enrollment'
+      ? process.env.NEXT_PUBLIC_EMAILJS_ENROLL_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+      : process.env.NEXT_PUBLIC_EMAILJS_CONTACT_TEMPLATE_ID || process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+
+    if (!serviceId || !publicKey || !templateId) {
+      return NextResponse.json(
+        { error: 'O serviço de email não está configurado.' },
+        { status: 503 }
+      )
     }
 
-    // If EmailJS keys are set, send the email
-    if (serviceId && publicKey && templateId) {
-
-      
-      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          service_id: serviceId,
-          template_id: templateId,
-          user_id: publicKey,
-          accessToken: process.env.EMAILJS_PRIVATE_KEY || undefined,
-          template_params: {
-            to_email: 'comercialprimeacademy@gmail.com',
-            type: data.type,
-            name: data.name,
-            email: data.email,
-            phone: data.phone || 'Não fornecido',
-            course: data.course || 'N/A',
-            message: data.message || 'Sem mensagem adicional',
-          },
-        }),
-      })
-
-      if (!response.ok) {
-        const errorText = await response.text()
-
-        return NextResponse.json(
-          { error: `EmailJS Error: ${response.status} - ${errorText}` },
-          { status: 500 }
-        )
-      }
-
-
-    } else {
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+    const templateParams = {
+      to_email: 'comercialprimeacademy@gmail.com',
+      to_name: 'Prime Academy',
+      type: data.type,
+      name,
+      from_name: name,
+      email,
+      user_email: email,
+      reply_to: email,
+      phone: typeof data.phone === 'string' ? data.phone.trim() : 'Não fornecido',
+      course: typeof data.course === 'string' ? data.course.trim() : 'N/A',
+      message: typeof data.message === 'string' ? data.message.trim() : 'Sem mensagem adicional',
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      message: data.type === 'enrollment' 
-        ? 'Inscrição recebida com sucesso!' 
-        : 'Mensagem enviada com sucesso!'
+    const emailjsPayload: Record<string, unknown> = {
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
+      template_params: templateParams,
+    }
+
+    // Only send the private key when explicitly configured; undefined values are
+    // omitted by JSON.stringify and can make EmailJS reject the request.
+    if (process.env.EMAILJS_PRIVATE_KEY) {
+      emailjsPayload.accessToken = process.env.EMAILJS_PRIVATE_KEY
+    }
+
+    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(emailjsPayload),
+      cache: 'no-store',
+    })
+
+    if (!response.ok) {
+      const errorText = (await response.text()).slice(0, 500)
+      console.error('[send-email] EmailJS rejected request', response.status, errorText)
+      return NextResponse.json(
+        { error: 'Não foi possível enviar o email. Tente novamente.' },
+        { status: 502 }
+      )
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: data.type === 'enrollment' ? 'Inscrição recebida com sucesso!' : 'Mensagem enviada com sucesso!',
     })
   } catch (error) {
-
+    console.error('[send-email] Unexpected error', error)
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Erro ao processar o pedido. Tente novamente.' },
+      { error: 'Erro ao processar o pedido. Tente novamente.' },
       { status: 500 }
     )
   }
