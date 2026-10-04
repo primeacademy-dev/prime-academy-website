@@ -1,7 +1,6 @@
 import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const recipient = 'comercialprimeacademy@gmail.com'
 
 function escapeHtml(value: string) {
@@ -26,16 +25,10 @@ function senderAddress() {
   return domain ? `Prime Academy <noreply@${domain}>` : ''
 }
 
-function makeIdempotencyKey(data: FormData) {
-  const normalized = JSON.stringify({
-    type: data.type,
-    name: data.name,
-    email: data.email,
-    phone: data.phone ?? '',
-    course: data.course ?? '',
-    message: data.message ?? '',
-  })
-  return `form-submission/${Buffer.from(normalized).toString('base64url').slice(0, 180)}`
+function makeIdempotencyKey() {
+  // Cada envio do formulário é uma nova intenção. O conteúdo não pode compor
+  // a chave, porque duas submissões legítimas iguais causariam conflito 409.
+  return `form-submission/${crypto.randomUUID()}`
 }
 
 function emailHtml(data: FormData) {
@@ -106,6 +99,8 @@ export async function POST(request: NextRequest) {
         { status: 503 }
       )
     }
+
+    const resend = new Resend(process.env.RESEND_API_KEY)
 
     const formData = {
       type: data.type,
